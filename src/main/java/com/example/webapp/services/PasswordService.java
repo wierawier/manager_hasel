@@ -1,39 +1,42 @@
 package com.example.webapp.services;
 
+
 import com.example.webapp.models.Password;
+import com.example.webapp.repositories.PasswordRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class PasswordService {
-    private List<Password> passwords = new ArrayList<>();
-    private int ID = 0;
+    private final PasswordRepository passwordRepository;
 
-    {
-        passwords.add(new Password(++ID,"Youtube", "youtube.com", "xyz@gmail.com", "kjcseiu%72edjc"));
-        passwords.add(new Password(++ID,"Twitter", "x.com", "qwerty@gmail.com", "LKcsdckdcn"));
+    public List<Password> listPasswords (String titlle) {
+        List<Password> passwords = passwordRepository.findAll();
+        if (titlle != null) passwordRepository.findByTitle(titlle);
+        return passwordRepository.findAll();
     }
 
-    public Password getPasswordById(Integer id) {
-        for (Password password : passwords) {
-            if (password.getId() == id)
-                return password;
-        }
-        return null;
-    }
-    public List<Password> listPassword() {
-        return passwords;
+    public Password getPasswordById(Long id) {
+         return passwordRepository.findById(id).orElse(null);
     }
 
     public void addPassword(Password password) {
-        password.setId(++ID);
-        passwords.add(password);
+        log.info("Add new {}", password);
+        passwordRepository.save(password);
     }
 
-    public void deletePassword(Integer id) {
-        passwords.removeIf(password -> password.getId() == id);
+    public void deletePassword(Long id) {
+        passwordRepository.deleteById(id);
     }
 
 

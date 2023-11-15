@@ -5,6 +5,10 @@
 </head>
 <body>
 <h1>Manager Haseł</h1>
+<form action="/" method="get">
+    Szukać po nazwie:<input type="text" name="title"><br>
+    <input type="submit" value="Szukaj"/>
+</form>
 <#list passwords as password>
     <div>
         <p><b>${password.title}</b> ${password.login} <a href="/password/${password.id}"> -> </a></p>

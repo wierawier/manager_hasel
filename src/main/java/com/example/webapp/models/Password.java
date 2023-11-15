@@ -1,13 +1,30 @@
 package com.example.webapp.models;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+@Entity
+@Table(name = "logins")
+@Data
+@NoArgsConstructor
 public class Password  {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "title")
     private String title;
+    @Column(name = "site")
     private String site;
+    @Column(name = "login")
     private String login;
+    @Column(name = "password")
     private String password;
 
-    public Password(int id, String title, String site, String login, String password) {
+    public Password(Long id, String title, String site, String login, String password) {
         this.id = id;
         this.title = title;
         this.site = site;
@@ -22,7 +39,7 @@ public class Password  {
         this.password = password;
     }
 
-    public int getId() {
+    public Long getId() {
         return this.id;
     }
 
@@ -42,7 +59,7 @@ public class Password  {
         return this.password;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -90,7 +107,7 @@ public class Password  {
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
-        result = result * PRIME + this.getId();
+        result = (int) (result * PRIME + this.getId());
         final Object $title = this.getTitle();
         result = result * PRIME + ($title == null ? 43 : $title.hashCode());
         final Object $site = this.getSite();

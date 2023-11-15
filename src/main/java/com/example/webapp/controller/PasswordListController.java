@@ -5,40 +5,33 @@ import com.example.webapp.services.PasswordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
 public class PasswordListController {
     private final PasswordService passwordService;
-
-
     @GetMapping("/")
-    public String passwords(Model model) {
-        model.addAttribute("passwords", passwordService.listPassword());
+    public String passwords(@RequestParam(name = "title", required = false) String title, Model model) {
+        model.addAttribute("passwords", passwordService.listPasswords(title));
         return "passwords";
     }
 
     @PostMapping("/password/create")
-    public String createPassword(String title, String site, String login, String password){
-        Password p = new Password(title, site, login, password);
+    public String createPassword(Password p){
         passwordService.addPassword(p);
         return "redirect:/";
     }
 
     @PostMapping("/password/delete/{id}")
-    public String deletePassword(@PathVariable Integer id){
+    public String deletePassword(@PathVariable Long id){
         passwordService.deletePassword(id);
         return "redirect:/";
     }
 
     @GetMapping("/password/{id}")
-    public String passwordInfo(@PathVariable Integer id, Model model){
-        Password passwordById = passwordService.getPasswordById(id);
-        //
-        model.addAttribute("password", passwordById);
+    public String passwordInfo(@PathVariable Long id, Model model){
+        model.addAttribute("password", passwordService.getPasswordById(id));
         return "password-info";
     }
 }
