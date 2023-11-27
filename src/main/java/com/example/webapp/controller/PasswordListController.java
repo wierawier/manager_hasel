@@ -1,6 +1,7 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.models.Password;
+import com.example.webapp.models.PasswordInput;
 import com.example.webapp.services.PasswordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,17 @@ public class PasswordListController {
     }
 
     @PostMapping("/password/create")
-    public String createPassword(Password p){
+    public String createPassword(PasswordInput pi){
+
+        Password p = convert(pi);
         passwordService.addPassword(p);
         return "redirect:/";
     }
+
+    private Password convert(PasswordInput pI) {
+        return new Password(null, pI.getTitle(), pI.getSite(), pI.getLogin(), pI.getPassword());
+    }
+
 
     @PostMapping("/password/delete/{id}")
     public String deletePassword(@PathVariable Long id){
