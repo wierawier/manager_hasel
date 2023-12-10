@@ -21,8 +21,8 @@ public class PasswordService {
     private final PasswordRepository passwordRepository;
 
     public List<Password> listPasswords (String title) {
-        List<Password> passwords = passwordRepository.findAll();
-        if (title != null) passwordRepository.findByTitle(title);
+//        List<Password> passwords = passwordRepository.findAll();
+//        if (title != null) passwordRepository.findByTitle(title);
         return passwordRepository.findAll();
     }
 

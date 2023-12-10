@@ -24,4 +24,6 @@ public class Password {
     private String login;
     @Column(name = "password", columnDefinition = "text")
     private String password;
+
+       
 }
