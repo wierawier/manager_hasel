@@ -20,9 +20,7 @@ import java.util.List;
 public class PasswordService {
     private final PasswordRepository passwordRepository;
 
-    public List<Password> listPasswords (String title) {
-//        List<Password> passwords = passwordRepository.findAll();
-//        if (title != null) passwordRepository.findByTitle(title);
+    public List<Password> listPasswords () {
         return passwordRepository.findAll();
     }
 

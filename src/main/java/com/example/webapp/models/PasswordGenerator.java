@@ -7,9 +7,6 @@ public class PasswordGenerator {
     public static final String ALPHABET = "1234657890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&*_+";
     public static final Random R = new SecureRandom();
 
-    public PasswordGenerator() {
-    }
-
     public static String makePassword(int length) {
         StringBuilder password = new StringBuilder();
 

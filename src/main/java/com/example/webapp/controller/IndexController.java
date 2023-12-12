@@ -24,7 +24,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String passwords(Model model) {
-        List<Password> attributeValue = passwordService.listPasswords("");
+        List<Password> attributeValue = passwordService.listPasswords();
         model.addAttribute("passwords", attributeValue);
         return "passwords";
     }
@@ -53,4 +53,5 @@ public class IndexController {
         model.addAttribute("password", passwordById);
         return "password-info";
     }
+
 }
